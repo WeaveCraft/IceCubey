@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCubey_Server", "IceCubey
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCubey_Client", "IceCubey_Client\IceCubey_Client.csproj", "{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCubey_Models", "IceCubey_Models\IceCubey_Models.csproj", "{4C10BE11-7A60-4D2C-A88C-ADC729A30619}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C10BE11-7A60-4D2C-A88C-ADC729A30619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C10BE11-7A60-4D2C-A88C-ADC729A30619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C10BE11-7A60-4D2C-A88C-ADC729A30619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C10BE11-7A60-4D2C-A88C-ADC729A30619}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
