@@ -33,10 +33,10 @@
 
     private async Task ToastrSuccess()
     {
-        await _JsRunetime.InvokeVoidAsync("ShowToastr", "success", "Success");
+        await _JsRunetime.ToastrSuccess("Operation Successfull");
     }
     private async Task ToastrFailure()
     {
-        await _JsRunetime.InvokeVoidAsync("ShowToastr", "error", "Error");
+        await _JsRunetime.ToastrError("Operation Failed");
     }
 }
