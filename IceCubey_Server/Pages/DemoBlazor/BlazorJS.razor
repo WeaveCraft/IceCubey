@@ -9,6 +9,11 @@
     <button class="btn btn-success" @onclick="ToastrSuccess">Toastr Success</button>
     <button class="btn btn-danger" @onclick="ToastrFailure">Toastr Failure</button>
 </div>
+<br />
+<div class="row">
+    <button class="btn btn-success" @onclick="SweetAlertSuccess">SweetAlert Success</button>
+    <button class="btn btn-danger" @onclick="SweetAlertFailure">SweetAlert Failure</button>
+</div>
 
 <div class="row">
     @if (ConfirmResult)
@@ -38,5 +43,14 @@
     private async Task ToastrFailure()
     {
         await _JsRunetime.ToastrError("Operation Failed");
+    }
+
+    private async Task SweetAlertSuccess()
+    {
+        await _JsRunetime.InvokeVoidAsync("ShowSwal", "success", "Task Completed");
+    }
+    private async Task SweetAlertFailure()
+    {
+        await _JsRunetime.InvokeVoidAsync("ShowSwal", "error", "Task Failed");
     }
 }
