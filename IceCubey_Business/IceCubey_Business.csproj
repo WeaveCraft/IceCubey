@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IceCubey_DataAccess\IceCubey_DataAccess.csproj" />
+    <ProjectReference Include="..\IceCubey_Models\IceCubey_Models.csproj" />
+  </ItemGroup>
+
 </Project>
