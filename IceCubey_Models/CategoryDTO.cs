@@ -6,6 +6,6 @@ namespace IceCubey_Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Please Enter a Name")]
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
 }
