@@ -8,7 +8,7 @@
         <h4 class="card-title text-info">Income List</h4>
     </div>
     <div class="col-5 offset-1">
-        <a href="category/create" class="btn btn-primary form-control">Add New Income</a>
+        <a href="income/create" class="btn btn-primary form-control">Add New Income</a>
     </div>
     <div class="col-12">
         @if (Incomes.Any())
@@ -28,13 +28,13 @@
                     {
                         <tr>
                             <td>
-                                @objCat.Name
+                                @objInc.Name
                             </td>
                             <th>
                                 <input type="checkbox" disabled checked="@objInc.IsCommon">
                             </th>
                             <th>
-                                <input type="checkbox" disabled checked="@objInc.IsUnCommon">
+                                <input type="checkbox" disabled checked="@objInc.IsUncommon">
                             </th>
                             <th>
                                 @objInc.Category.Name
@@ -60,7 +60,7 @@
             else
             {
                 //No Records
-                <p>No Categories Found</p>
+                <p>No Incomes Found</p>
             }
         }
     </div>

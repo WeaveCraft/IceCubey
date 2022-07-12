@@ -1,6 +1,6 @@
-﻿@page "/category/create"
-@page "/category/edit/{id:int}"
-
+﻿@page "/income/create"
+@page "/income/edit/{id:int}"
+@inject IIncomeRepository _incomeRepository
 @inject ICategoryRepository _categoryRepository
 @inject NavigationManager _navigationManager
 
@@ -16,16 +16,47 @@
         }
         else
         {
-            <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+            <EditForm Model="Income" OnValidSubmit="UpsertIncome">
                 <DataAnnotationsValidator />
                 <div class="form-group">
                     <label>Name</label>
-                    <InputText @bind-Value="Category.Name" class="form-control"></InputText>
-                    <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                    <InputText @bind-Value="Income.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Income.Name"></ValidationMessage>
                 </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <InputDate @bind-Value="Income.Date" class="form-control"></InputDate>
+                    <ValidationMessage For="()=>Income.Date"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <InputText @bind-Value="Income.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Income.Name"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <InputTextArea @bind-Value="Income.Description" class="form-control"></InputTextArea>
+                    <ValidationMessage For="()=>Income.Description"></ValidationMessage>
+                </div>
+
+                <div class="row pt-3">
+                    <div class="btn-group col-6">
+                    <div class="form-check">
+                        <InputCheckbox @bind-Value="Income.IsCommon" class="form-check-input"></InputCheckbox>
+                        <label class="form-check-label">Is Income Common</label>
+                    </div>
+                    </div>
+                    <div class="btn-group col-6">
+                    <div class="form-check">
+                        <InputCheckbox @bind-Value="Income.IsUncommon" class="form-check-input"></InputCheckbox>
+                        <label class="form-check-label">Is Income Uncommon</label>
+                    </div>
+                    </div>
+                </div>
+                
                 <div class="form-group py-2">
                     <button class="btn btn-primary">@Title</button>
-                    <NavLink href="category" class="btn btn-secondary">Back to Index</NavLink>
+                    <NavLink href="income" class="btn btn-secondary">Back to Index</NavLink>
                 </div>
             </EditForm>
         }
@@ -36,7 +67,8 @@
     [Parameter]
     public int Id { get; set; }
 
-    private CategoryDTO Category { get; set; } = new CategoryDTO();
+    private IncomeDTO Income { get; set; } = new();
+    private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
     private string Title { get; set; } = "Create";
     public bool IsLoading { get; set; }
 
@@ -44,42 +76,38 @@
     {
         if (firstRender)
         {
-            if (Id == 0)
-            {
-                //create
-                IsLoading = false;
-            }
-            else
-            {
-                //update
-                Title = "Update";
-                await LoadCategory();
-            }
+            await LoadIncome();
         }
     }
 
-    private async Task LoadCategory()
+    private async Task LoadIncome()
     {
         IsLoading = true;
         StateHasChanged();
-        Category = await _categoryRepository.Get(Id);
+        Categories = await _categoryRepository.GetAll();
+        if(Id != 0)
+        {
+            //update
+            Title = "Update";
+            Income = await _incomeRepository.Get(Id);
+        }
         IsLoading = false;
         StateHasChanged();
     }
 
-    private async Task UpsertCategory()
+    private async Task UpsertIncome()
     {
-        if (Category.Id == 0)
+        if (Income.Id == 0)
         {
             //create
-            await _categoryRepository.Create(Category);
+            await _incomeRepository.Create(Income);
         }
         else
         {
             //update
-            await _categoryRepository.Update(Category);
+            await _incomeRepository.Update(Income);
         }
 
-        _navigationManager.NavigateTo("/category");
+        _navigationManager.NavigateTo("income");
     }
 }
