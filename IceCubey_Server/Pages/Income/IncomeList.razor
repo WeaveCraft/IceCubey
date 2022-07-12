@@ -1,0 +1,110 @@
+﻿@page "/income"
+@inject IIncomeRepository _incomeRepository
+@inject IJSRuntime _jsRuntime
+
+<_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
+<div class="row mt-4">
+    <div class="col-6">
+        <h4 class="card-title text-info">Income List</h4>
+    </div>
+    <div class="col-5 offset-1">
+        <a href="category/create" class="btn btn-primary form-control">Add New Income</a>
+    </div>
+    <div class="col-12">
+        @if (Incomes.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Is Common</th>
+                        <th>Is Uncommon</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var objInc in Incomes)
+                    {
+                        <tr>
+                            <td>
+                                @objCat.Name
+                            </td>
+                            <th>
+                                <input type="checkbox" disabled checked="@objInc.IsCommon">
+                            </th>
+                            <th>
+                                <input type="checkbox" disabled checked="@objInc.IsUnCommon">
+                            </th>
+                            <th>
+                                @objInc.Category.Name
+                            </th>
+                            <td>
+                                <NavLink href="@($"income/edit/{objInc.Id}")" class="btn btn-primary">Edit</NavLink>
+                                <button class="btn btn-danger" @onclick="()=>HandleDelete(objInc.Id)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            if (IsLoading)
+            {
+                //Loading gif
+                <div class="text-center">
+                    <img src="/images/meltingIce_01.gif">
+                </div>
+            }
+            else
+            {
+                //No Records
+                <p>No Categories Found</p>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    private IEnumerable<IncomeDTO> Incomes { get; set; } = new List<IncomeDTO>();
+    public bool IsLoading { get; set; }
+    private int DeleteIncomeId { get; set; } = 0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadIncomes();
+        }
+    }
+
+    private async Task LoadIncomes()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Incomes = await _incomeRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private void HandleDelete(int id)
+    {
+        DeleteIncomeId = id;
+        _jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsLoading = true;
+        if (isConfirmed && DeleteIncomeId != 0)
+        {
+            await Task.Delay(2000);
+            //delete
+            await _incomeRepository.Delete(DeleteIncomeId);
+            await LoadIncomes();
+            await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        }
+        IsLoading = false;
+    }
+}

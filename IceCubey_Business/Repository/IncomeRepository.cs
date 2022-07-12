@@ -40,7 +40,7 @@ namespace IceCubey_Business.Repository
 
         public async Task<IncomeDTO> Get(int id)
         {
-            var obj = await _db.Incomes.FirstOrDefaultAsync(u => u.Id == id);
+            var obj = await _db.Incomes.Include(u => u.Category).FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
                 return _mapper.Map<Income, IncomeDTO>(obj);
@@ -50,7 +50,7 @@ namespace IceCubey_Business.Repository
 
         public async Task<IEnumerable<IncomeDTO>> GetAll()
         {
-            return _mapper.Map<IEnumerable<Income>, IEnumerable<IncomeDTO>>(_db.Incomes);
+            return _mapper.Map<IEnumerable<Income>, IEnumerable<IncomeDTO>>(_db.Incomes.Include(u => u.Category));
         }
 
         public async Task<IncomeDTO> Update(IncomeDTO objDTO)
