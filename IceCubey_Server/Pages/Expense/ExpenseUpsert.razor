@@ -1,11 +1,11 @@
-﻿@page "/income/create"
-@page "/income/edit/{id:int}"
-@inject IIncomeRepository _incomeRepository
+﻿@page "/expense/create"
+@page "/expense/edit/{id:int}"
+@inject IExpenseRepository _expenseRepository
 @inject ICategoryRepository _categoryRepository
 @inject NavigationManager _navigationManager
 
 <div class="row my-2">
-    <h3 class="card-title text-primary mb-3 ml-3">@Title Income</h3>
+    <h3 class="card-title text-primary mb-3 ml-3">@Title Expense</h3>
 
     <div class="col-10">
         @if (IsLoading)
@@ -16,39 +16,39 @@
         }
         else
         {
-            <EditForm Model="Income" OnValidSubmit="UpsertIncome">
+            <EditForm Model="Expense" OnValidSubmit="UpsertExpense">
                 <DataAnnotationsValidator />
                 <div class="form-group">
                     <label>Name</label>
-                    <InputText @bind-Value="Income.Name" class="form-control"></InputText>
-                    <ValidationMessage For="()=>Income.Name"></ValidationMessage>
+                    <InputText @bind-Value="Expense.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Expense.Name"></ValidationMessage>
                 </div>
                 <div class="form-group">
                     <label>Date</label>
-                    <InputDate @bind-Value="Income.Date" class="form-control"></InputDate>
-                    <ValidationMessage For="()=>Income.Date"></ValidationMessage>
+                    <InputDate @bind-Value="Expense.Date" class="form-control"></InputDate>
+                    <ValidationMessage For="()=>Expense.Date"></ValidationMessage>
                 </div>
                 <div class="form-group">
                     <label>Name</label>
-                    <InputText @bind-Value="Income.Name" class="form-control"></InputText>
-                    <ValidationMessage For="()=>Income.Name"></ValidationMessage>
+                    <InputText @bind-Value="Expense.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Expense.Name"></ValidationMessage>
                 </div>
                 <div class="form-group">
                     <label>Name</label>
-                    <InputTextArea @bind-Value="Income.Description" class="form-control"></InputTextArea>
-                    <ValidationMessage For="()=>Income.Description"></ValidationMessage>
+                    <InputTextArea @bind-Value="Expense.Description" class="form-control"></InputTextArea>
+                    <ValidationMessage For="()=>Expense.Description"></ValidationMessage>
                 </div>
 
                 <div class="row pt-3">
                     <div class="btn-group col-6">
                     <div class="form-check">
-                        <InputCheckbox @bind-Value="Income.IsCommon" class="form-check-input"></InputCheckbox>
+                        <InputCheckbox @bind-Value="Expense.IsCommon" class="form-check-input"></InputCheckbox>
                         <label class="form-check-label">Is Income Common</label>
                     </div>
                     </div>
                     <div class="btn-group col-6">
                     <div class="form-check">
-                        <InputCheckbox @bind-Value="Income.IsUncommon" class="form-check-input"></InputCheckbox>
+                        <InputCheckbox @bind-Value="Expense.IsUncommon" class="form-check-input"></InputCheckbox>
                         <label class="form-check-label">Is Income Uncommon</label>
                     </div>
                     </div>
@@ -67,7 +67,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private IncomeDTO Income { get; set; } = new();
+    private ExpenseDTO Expense { get; set; } = new();
     private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
     private string Title { get; set; } = "Add";
     public bool IsLoading { get; set; }
@@ -76,11 +76,11 @@
     {
         if (firstRender)
         {
-            await LoadIncome();
+            await LoadExpense();
         }
     }
 
-    private async Task LoadIncome()
+    private async Task LoadExpense()
     {
         IsLoading = true;
         StateHasChanged();
@@ -89,25 +89,25 @@
         {
             //update
             Title = "Update";
-            Income = await _incomeRepository.Get(Id);
+            Expense = await _expenseRepository.Get(Id);
         }
         IsLoading = false;
         StateHasChanged();
     }
 
-    private async Task UpsertIncome()
+    private async Task UpsertExpense()
     {
-        if (Income.Id == 0)
+        if (Expense.Id == 0)
         {
             //create
-            await _incomeRepository.Create(Income);
+            await _expenseRepository.Create(Expense);
         }
         else
         {
             //update
-            await _incomeRepository.Update(Income);
+            await _expenseRepository.Update(Expense);
         }
 
-        _navigationManager.NavigateTo("income");
+        _navigationManager.NavigateTo("expense");
     }
 }
