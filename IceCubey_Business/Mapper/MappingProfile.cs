@@ -10,6 +10,7 @@ namespace IceCubey_Business.Mapper
         {
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Income, IncomeDTO>().ReverseMap();
+            CreateMap<Expense, ExpenseDTO>().ReverseMap();
         }
     }
 }
