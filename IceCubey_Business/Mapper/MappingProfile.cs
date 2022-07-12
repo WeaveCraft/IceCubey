@@ -9,6 +9,7 @@ namespace IceCubey_Business.Mapper
         public MappingProfile()
         {
             CreateMap<Category, CategoryDTO>().ReverseMap();
+            CreateMap<Income, IncomeDTO>().ReverseMap();
         }
     }
 }
