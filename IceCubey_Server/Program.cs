@@ -1,6 +1,8 @@
 using IceCubey_Business.Repository;
 using IceCubey_Business.Repository.IRepository;
 using IceCubey_DataAccess.Data;
+using IceCubey_Server.Service;
+using IceCubey_Server.Service.IService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); //When we request category repo in blazor server it will give us an obj of categoryrepo & its implementation.
 builder.Services.AddScoped<IIncomeRepository, IncomeRepository>(); 
 builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>(); 
+builder.Services.AddScoped<IFileUpload, FileUpload>(); 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
