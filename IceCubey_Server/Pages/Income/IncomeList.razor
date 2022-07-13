@@ -1,6 +1,7 @@
 ﻿@page "/income"
 @inject IIncomeRepository _incomeRepository
 @inject IJSRuntime _jsRuntime
+@inject IFileUpload _fileUpload
 
 <_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 <div class="row mt-4">
@@ -102,7 +103,13 @@
         {
             await Task.Delay(2000);
             //delete
+            IncomeDTO income = await _incomeRepository.Get(DeleteIncomeId);
+            if (!income.ImageUrl.Contains("default_image.png"))
+            {
+                _fileUpload.DeleteFile(income.ImageUrl);
+            }
             await _incomeRepository.Delete(DeleteIncomeId);
+            await _jsRuntime.ToastrSuccess("Income Deleted Successfully");
             await LoadIncomes();
             await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
         }
