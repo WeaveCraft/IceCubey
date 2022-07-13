@@ -90,6 +90,7 @@
     private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
     private string Title { get; set; } = "Add";
     public bool IsLoading { get; set; }
+    public string OldImageUrl { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -109,6 +110,7 @@
             //update
             Title = "Update";
             Income = await _incomeRepository.Get(Id);
+            OldImageUrl = Income.ImageUrl;
         }
         IsLoading = false;
         StateHasChanged();
@@ -120,11 +122,17 @@
         {
             //create
             await _incomeRepository.Create(Income);
+            await _jsRuntime.ToastrSuccess("Income Created!");
         }
         else
         {
             //update
+            if (OldImageUrl != Income.ImageUrl)
+            {
+                _fileUpload.DeleteFile(OldImageUrl);
+            }
             await _incomeRepository.Update(Income);
+            await _jsRuntime.ToastrSuccess("Expense Updated!");
         }
 
         _navigationManager.NavigateTo("income");
