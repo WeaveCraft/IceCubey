@@ -40,7 +40,7 @@ namespace IceCubey_Business.Repository
 
         public async Task<ExpenseDTO> Get(int id)
         {
-            var obj = await _db.Expenses.Include(u => u.Category).FirstOrDefaultAsync(u => u.Id == id);
+            var obj = await _db.Expenses.Include(u => u.ExpenseCategory).FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
                 return _mapper.Map<Expense, ExpenseDTO>(obj);
@@ -50,7 +50,7 @@ namespace IceCubey_Business.Repository
 
         public async Task<IEnumerable<ExpenseDTO>> GetAll()
         {
-            return _mapper.Map<IEnumerable<Expense>, IEnumerable<ExpenseDTO>>(_db.Expenses.Include(u => u.Category));
+            return _mapper.Map<IEnumerable<Expense>, IEnumerable<ExpenseDTO>>(_db.Expenses.Include(u => u.ExpenseCategory));
         }
 
         public async Task<ExpenseDTO> Update(ExpenseDTO objDTO)
@@ -61,7 +61,7 @@ namespace IceCubey_Business.Repository
                 objFromDb.Name = objDTO.Name;
                 objFromDb.Description = objDTO.Description;
                 objFromDb.ImageUrl = objDTO.ImageUrl;
-                objFromDb.CategoryId = objDTO.CategoryId;
+                objFromDb.ExpenseCategoryId = objDTO.ExpenseCategoryId;
                 objFromDb.Date = objDTO.Date;
                 objFromDb.IsCommon = objDTO.IsCommon;
                 objFromDb.IsUncommon = objDTO.IsUncommon;

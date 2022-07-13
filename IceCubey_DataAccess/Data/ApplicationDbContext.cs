@@ -10,6 +10,7 @@ namespace IceCubey_DataAccess.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
         public DbSet<Income> Incomes { get; set; }
         public DbSet<Expense> Expenses { get; set; }
     }

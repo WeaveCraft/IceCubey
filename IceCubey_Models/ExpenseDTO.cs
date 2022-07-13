@@ -14,7 +14,7 @@ namespace IceCubey_Models
         public DateTime Date { get; set; }
         public string? ImageUrl { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Please select a category")]
-        public int CategoryId { get; set; }
-        public CategoryDTO Category { get; set; }
+        public int ExpenseCategoryId { get; set; }
+        public ExpenseCategoryDTO ExpenseCategory { get; set; }
     }
 }

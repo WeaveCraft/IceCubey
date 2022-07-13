@@ -37,10 +37,11 @@
                                 <input type="checkbox" disabled checked="@objExp.IsUncommon">
                             </th>
                             <th>
-                                @objExp.Category.Name
+                                @objExp.ExpenseCategory.Name
                             </th>
                             <td>
                                 <NavLink href="@($"expense/edit/{objExp.Id}")" class="btn btn-primary">Edit</NavLink>
+                                <NavLink href="@($"category")" class="btn btn-primary">View Categories</NavLink>
                                 <button class="btn btn-danger" @onclick="()=>HandleDelete(objExp.Id)">Delete</button>
                             </td>
                         </tr>

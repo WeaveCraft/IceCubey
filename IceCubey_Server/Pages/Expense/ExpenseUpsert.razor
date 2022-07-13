@@ -1,7 +1,7 @@
 ﻿@page "/expense/create"
 @page "/expense/edit/{id:int}"
 @inject IExpenseRepository _expenseRepository
-@inject ICategoryRepository _categoryRepository
+@inject IExpenseCategoryRepository _expenseCategoryRepository
 @inject NavigationManager _navigationManager
 @inject IFileUpload _fileUpload
 @inject IJSRuntime _jsRuntime
@@ -51,15 +51,15 @@
                     </div>
                     <div class="form-group col-6">
                         <label>Category</label>
-                        <InputSelect @bind-Value="Expense.CategoryId" class="form-select">
+                        <InputSelect @bind-Value="Expense.ExpenseCategoryId" class="form-select">
                             <option value="0" disabled="disabled" selected=>Select Category</option>
-                            @foreach (var cat in Categories)
+                            @foreach (var cat in ExpenseCategories)
                             {
                             <option value="@cat.Id">@cat.Name</option>
                             }
 
                     </InputSelect>
-                    <ValidationMessage For="()=>Expense.CategoryId"></ValidationMessage>
+                    <ValidationMessage For="()=>Expense.ExpenseCategoryId"></ValidationMessage>
                 </div>
                 <div class="form-group col-6">
                     <InputFile OnChange="HandleImageUpload"></InputFile>
@@ -86,7 +86,7 @@
         {
             ImageUrl = "/images/default_image.png"
         };
-    private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
+    private IEnumerable<ExpenseCategoryDTO> ExpenseCategories { get; set; } = new List<ExpenseCategoryDTO>();
     private string Title { get; set; } = "Add";
     public bool IsLoading { get; set; }
     public string OldImageUrl { get; set; }
@@ -103,7 +103,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Categories = await _categoryRepository.GetAll();
+        ExpenseCategories = await _expenseCategoryRepository.GetAll();
         if (Id != 0)
         {
             //update

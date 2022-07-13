@@ -13,8 +13,8 @@ namespace IceCubey_DataAccess
         public bool IsUncommon { get; set; } //Income that simply is uncommon
         public DateTime Date { get; set; }
         public string? ImageUrl { get; set; }
-        public int CategoryId { get; set; }
+        public int ExpenseCategoryId { get; set; }
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
+        public ExpenseCategory ExpenseCategory { get; set; }
     }
 }

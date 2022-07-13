@@ -13,6 +13,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); //When we request category repo in blazor server it will give us an obj of categoryrepo & its implementation.
+builder.Services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>(); //When we request category repo in blazor server it will give us an obj of categoryrepo & its implementation.
 builder.Services.AddScoped<IIncomeRepository, IncomeRepository>(); 
 builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>(); 
 builder.Services.AddScoped<IFileUpload, FileUpload>(); 
