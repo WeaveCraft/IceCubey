@@ -4,6 +4,7 @@
 @inject ICategoryRepository _categoryRepository
 @inject NavigationManager _navigationManager
 @inject IFileUpload _fileUpload
+@inject IJSRuntime _jsRuntime
 
 <div class="row my-2">
     <h3 class="card-title text-primary mb-3 ml-3">@Title Income</h3>
@@ -37,16 +38,16 @@
 
                 <div class="row pt-3">
                     <div class="btn-group col-6">
-                    <div class="form-check">
-                        <InputCheckbox @bind-Value="Income.IsCommon" class="form-check-input"></InputCheckbox>
-                        <label class="form-check-label">Necessary</label>
-                    </div>
+                        <div class="form-check">
+                            <InputCheckbox @bind-Value="Income.IsCommon" class="form-check-input"></InputCheckbox>
+                            <label class="form-check-label">Necessary</label>
+                        </div>
                     </div>
                     <div class="btn-group col-6">
-                    <div class="form-check">
-                        <InputCheckbox @bind-Value="Income.IsUncommon" class="form-check-input"></InputCheckbox>
-                        <label class="form-check-label">Redundant</label>
-                    </div>
+                        <div class="form-check">
+                            <InputCheckbox @bind-Value="Income.IsUncommon" class="form-check-input"></InputCheckbox>
+                            <label class="form-check-label">Redundant</label>
+                        </div>
                     </div>
                     <div class="form-group col-6">
                         <label>Category</label>
@@ -60,22 +61,32 @@
                     </InputSelect>
                     <ValidationMessage For="()=>Income.CategoryId"></ValidationMessage>
                 </div>
+
+                <div class="form-group col-6">
+                    <InputFile OnChange="HandleImageUpload"></InputFile>
                 </div>
-                
-                <div class="form-group py-2">
-                    <button class="btn btn-primary">@Title</button>
-                    <NavLink href="income" class="btn btn-secondary">Back to Index</NavLink>
-                </div>
-            </EditForm>
+            </div>
+
+            <div class="form-group py-2">
+                <button class="btn btn-primary">@Title</button>
+                <NavLink href="income" class="btn btn-secondary">Back to Index</NavLink>
+            </div>
+        </EditForm>
         }
     </div>
+</div>
+<div class="col-md-2">
+    <img src="@Income.ImageUrl" class="w-100" />
 </div>
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
-    private IncomeDTO Income { get; set; } = new();
+    private IncomeDTO Income { get; set; } = new()
+        {
+            ImageUrl = "/images/default_image.png"
+        };
     private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
     private string Title { get; set; } = "Add";
     public bool IsLoading { get; set; }
@@ -93,7 +104,7 @@
         IsLoading = true;
         StateHasChanged();
         Categories = await _categoryRepository.GetAll();
-        if(Id != 0)
+        if (Id != 0)
         {
             //update
             Title = "Update";
@@ -117,5 +128,37 @@
         }
 
         _navigationManager.NavigateTo("income");
+    }
+
+    private async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        IsLoading = true;
+        try
+        {
+            if (e.GetMultipleFiles().Count > 0)
+            {
+                foreach (var file in e.GetMultipleFiles())
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
+                    if (fileInfo.Extension.ToLower() == ".jpg" ||
+                    fileInfo.Extension.ToLower() == ".png" ||
+                    fileInfo.Extension.ToLower() == ".jpeg")
+                    {
+                        Income.ImageUrl = await _fileUpload.UploadFile(file);
+                    }
+                    else
+                    {
+                        await _jsRuntime.ToastrError("Select .jpg/.jpeg/.png Files Only");
+                        return;
+                    }
+                }
+            }
+            IsLoading = false;
+
+        }
+        catch (Exception ex)
+        {
+            await _jsRuntime.ToastrError(ex.Message);
+        }
     }
 }

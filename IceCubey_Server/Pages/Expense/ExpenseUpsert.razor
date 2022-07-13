@@ -74,12 +74,18 @@
         }
     </div>
 </div>
+<div class="col-md-2">
+    <img src="@Expense.ImageUrl" class="w-100" />
+</div>
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
-    private ExpenseDTO Expense { get; set; } = new();
+    private ExpenseDTO Expense { get; set; } = new()
+        {
+            ImageUrl = "/images/default_image.png"
+        };
     private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
     private string Title { get; set; } = "Add";
     public bool IsLoading { get; set; }
