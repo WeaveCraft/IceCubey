@@ -14,7 +14,7 @@ namespace IceCubey_DataAccess
         public DateTime Date { get; set; }
         public string? ImageUrl { get; set; }
         public int ExpenseCategoryId { get; set; }
-        [ForeignKey("CategoryId")]
+        [ForeignKey("ExpenseCategoryId")]
         public ExpenseCategory ExpenseCategory { get; set; }
     }
 }
