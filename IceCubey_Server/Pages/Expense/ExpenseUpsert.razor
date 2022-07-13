@@ -29,36 +29,43 @@
                     <ValidationMessage For="()=>Expense.Date"></ValidationMessage>
                 </div>
                 <div class="form-group">
-                    <label>Name</label>
-                    <InputText @bind-Value="Expense.Name" class="form-control"></InputText>
-                    <ValidationMessage For="()=>Expense.Name"></ValidationMessage>
-                </div>
-                <div class="form-group">
-                    <label>Name</label>
+                    <label>Description</label>
                     <InputTextArea @bind-Value="Expense.Description" class="form-control"></InputTextArea>
                     <ValidationMessage For="()=>Expense.Description"></ValidationMessage>
                 </div>
 
                 <div class="row pt-3">
-                    <div class="btn-group col-6">
-                    <div class="form-check">
-                        <InputCheckbox @bind-Value="Expense.IsCommon" class="form-check-input"></InputCheckbox>
-                        <label class="form-check-label">Is Income Common</label>
+                    <div class="form-group col-6">
+                        <div class="form-check">
+                            <InputCheckbox @bind-Value="Expense.IsCommon" class="form-check-input"></InputCheckbox>
+                            <label class="form-check-label">Necessary</label>
+                        </div>
                     </div>
+                    <div class="form-group col-6">
+                        <div class="form-check">
+                            <InputCheckbox @bind-Value="Expense.IsUncommon" class="form-check-input"></InputCheckbox>
+                            <label class="form-check-label">Redundant</label>
+                        </div>
                     </div>
-                    <div class="btn-group col-6">
-                    <div class="form-check">
-                        <InputCheckbox @bind-Value="Expense.IsUncommon" class="form-check-input"></InputCheckbox>
-                        <label class="form-check-label">Is Income Uncommon</label>
-                    </div>
-                    </div>
+                    <div class="form-group col-6">
+                        <label>Category</label>
+                        <InputSelect @bind-Value="Expense.CategoryId" class="form-select">
+                            <option value="0" disabled="disabled" selected=>Select Category</option>
+                            @foreach (var cat in Categories)
+                            {
+                            <option value="@cat.Id">@cat.Name</option>
+                            }
+
+                    </InputSelect>
+                    <ValidationMessage For="()=>Expense.CategoryId"></ValidationMessage>
                 </div>
-                
-                <div class="form-group py-2">
-                    <button class="btn btn-primary">@Title</button>
-                    <NavLink href="income" class="btn btn-secondary">Back to Index</NavLink>
-                </div>
-            </EditForm>
+            </div>
+
+            <div class="form-group py-2">
+                <button class="btn btn-primary">@Title</button>
+                <NavLink href="income" class="btn btn-secondary">Back to Index</NavLink>
+            </div>
+        </EditForm>
         }
     </div>
 </div>
@@ -85,7 +92,7 @@
         IsLoading = true;
         StateHasChanged();
         Categories = await _categoryRepository.GetAll();
-        if(Id != 0)
+        if (Id != 0)
         {
             //update
             Title = "Update";

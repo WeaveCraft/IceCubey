@@ -29,12 +29,7 @@
                     <ValidationMessage For="()=>Income.Date"></ValidationMessage>
                 </div>
                 <div class="form-group">
-                    <label>Name</label>
-                    <InputText @bind-Value="Income.Name" class="form-control"></InputText>
-                    <ValidationMessage For="()=>Income.Name"></ValidationMessage>
-                </div>
-                <div class="form-group">
-                    <label>Name</label>
+                    <label>Description</label>
                     <InputTextArea @bind-Value="Income.Description" class="form-control"></InputTextArea>
                     <ValidationMessage For="()=>Income.Description"></ValidationMessage>
                 </div>
@@ -43,15 +38,27 @@
                     <div class="btn-group col-6">
                     <div class="form-check">
                         <InputCheckbox @bind-Value="Income.IsCommon" class="form-check-input"></InputCheckbox>
-                        <label class="form-check-label">Is Income Common</label>
+                        <label class="form-check-label">Necessary</label>
                     </div>
                     </div>
                     <div class="btn-group col-6">
                     <div class="form-check">
                         <InputCheckbox @bind-Value="Income.IsUncommon" class="form-check-input"></InputCheckbox>
-                        <label class="form-check-label">Is Income Uncommon</label>
+                        <label class="form-check-label">Redundant</label>
                     </div>
                     </div>
+                    <div class="form-group col-6">
+                        <label>Category</label>
+                        <InputSelect @bind-Value="Income.CategoryId" class="form-select">
+                            <option value="0" disabled="disabled" selected=>Select Category</option>
+                            @foreach (var cat in Categories)
+                            {
+                            <option value="@cat.Id">@cat.Name</option>
+                            }
+
+                    </InputSelect>
+                    <ValidationMessage For="()=>Income.CategoryId"></ValidationMessage>
+                </div>
                 </div>
                 
                 <div class="form-group py-2">
