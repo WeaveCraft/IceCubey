@@ -4,6 +4,7 @@ using IceCubey_DataAccess.Data;
 using IceCubey_Server.Service;
 using IceCubey_Server.Service.IService;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
 builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>(); 
 builder.Services.AddScoped<IFileUpload, FileUpload>(); 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddSyncfusionBlazor();
 
 var app = builder.Build();
 
