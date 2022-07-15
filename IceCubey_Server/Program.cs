@@ -6,6 +6,8 @@ using IceCubey_Server.Service.IService;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
 
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Njc3NTA2QDMyMzAyZTMyMmUzMGw1Y2FZcWd5ZlZsbDRuL3MvYnlJRjV1VFNhRXYxWU5GRnRscDhBOGVlc2c9");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
