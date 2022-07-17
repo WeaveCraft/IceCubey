@@ -1,2 +1,2 @@
-# IceCubey
-Financea finance tracker using Blazor server with Syncfusion
+# IceCubeyFinancea 
+finance tracker using Blazor server with Syncfusion
