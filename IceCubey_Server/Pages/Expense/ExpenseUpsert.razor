@@ -65,6 +65,7 @@
 
                     </InputSelect>
                     <ValidationMessage For="()=>Expense.ExpenseCategoryId"></ValidationMessage>
+                    <button type="button" class="btn btn-info btn-sm" @onclick="()=> OpenDeleteDialog()">Add Category</button>
                 </div>
                 <div class="form-group col-6">
                     <InputFile OnChange="HandleImageUpload"></InputFile>
@@ -82,6 +83,10 @@
 <div class="col-md-2">
     <img src="@Expense.ImageUrl" class="w-100" />
 </div>
+@if (DeleteDialogOpen)
+{
+    <ModalDialog Title="Are you sure?" Text="Do you want to delete this entry?" OnClose="@OnDeleteDialogClose"></ModalDialog>
+}
 
 @code {
     [Parameter]
@@ -91,6 +96,18 @@
         {
             ImageUrl = "/images/default_image.png"
         };
+    public bool DeleteDialogOpen { get; set; }
+    private void OnDeleteDialogClose(bool accepted)
+    {
+        DeleteDialogOpen = false;
+        StateHasChanged();
+    }
+    private void OpenDeleteDialog()
+    {
+        DeleteDialogOpen = true;
+        StateHasChanged();
+    }
+
     private IEnumerable<ExpenseCategoryDTO> ExpenseCategories { get; set; } = new List<ExpenseCategoryDTO>();
     private string Title { get; set; } = "Add";
     public bool IsLoading { get; set; }
