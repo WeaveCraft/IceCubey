@@ -21,6 +21,7 @@
                         <th>Necessary</th>
                         <th>Redundant</th>
                         <th>Category</th>
+                        <th>Amount</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -39,6 +40,9 @@
                             </th>
                             <th>
                                 @objInc.Category.Name
+                            </th>
+                            <th>
+                                $@objInc.Amount
                             </th>
                             <td>
                                 <NavLink href="@($"income/edit/{objInc.Id}")" class="btn btn-primary">Edit</NavLink>

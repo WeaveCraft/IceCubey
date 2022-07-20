@@ -10,6 +10,7 @@ namespace IceCubey_Models
         public string? Description { get; set; }
         public bool IsCommon { get; set; } //Common income such as pay
         public bool IsUncommon { get; set; } //Income that simply is uncommon
+        public decimal Amount { get; set; }
         [Required]
         public DateTime Date { get; set; }
         public string? ImageUrl { get; set; }

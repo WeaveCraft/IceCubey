@@ -1,0 +1,50 @@
+﻿<div class="row recent-expense-grid">
+    <div class="col-xs-6 col-sm-6 col-md-12" style="width:100%">
+                <GridPageSettings PageCount="4" PageSize="14"></GridPageSettings>
+                <GridTemplates>
+                    <ToolbarTemplate>
+                        <SfToolbar>
+                            <ToolbarItems>
+                                <ToolbarItem Text="Recent Transactions"></ToolbarItem>
+                            </ToolbarItems>
+                        </SfToolbar>
+                    </ToolbarTemplate>
+                </GridTemplates>
+                <GridColumns>
+                    <GridColumn HeaderText="Date" Width="120" Format="d"></GridColumn>
+                    <GridColumn HeaderText="Category" Width="180">
+                        <Template>
+                                <div class="normalRes">
+                                    <div class="category-icon Category"></div>
+                                    <div class='category-text'>Category</div>
+                                </div>
+                                <div class="mediumRes">
+                                    <div>
+                                        <div class="category-icon"></div>
+                                    </div>
+                                    <div>
+                                        <div>Category </div>
+                                        <div> Description </div>
+                                    </div>
+                                </div>
+                                <div class="smallRes">
+                                    <div class='sm-category sm-icon'>
+                                        <div class="category-icon"></div>
+                                    </div>
+                                    <div class='sm-category category-content'>
+                                        <div> Category </div>
+                                        <div> Description </div>
+                                        <div> </div>
+                                    </div>
+                                </div>
+                        </Template>
+                    </GridColumn>
+                    <GridColumn HeaderText="Payment Mode" Width="160"></GridColumn>
+                    <GridColumn HeaderText="Description"></GridColumn>
+                    <GridColumn  HeaderText="Amount" Width="120">
+                        <Template>
+                        </Template>
+                    </GridColumn>
+                </GridColumns>
+    </div>
+</div>

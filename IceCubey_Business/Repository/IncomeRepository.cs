@@ -65,6 +65,7 @@ namespace IceCubey_Business.Repository
                 objFromDb.Date = objDTO.Date;
                 objFromDb.IsCommon = objDTO.IsCommon;
                 objFromDb.IsUncommon = objDTO.IsUncommon;
+                objFromDb.Amount = objDTO.Amount;
                 _db.Incomes.Update(objFromDb);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<Income, IncomeDTO>(objFromDb);

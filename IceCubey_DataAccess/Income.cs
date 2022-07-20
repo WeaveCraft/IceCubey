@@ -11,6 +11,7 @@ namespace IceCubey_DataAccess
         public string? Description { get; set; }
         public bool IsCommon { get; set; } //Common income such as pay
         public bool IsUncommon { get; set; } //Income that simply is uncommon
+        public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         public string? ImageUrl { get; set; }
         public int CategoryId { get; set; }

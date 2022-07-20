@@ -26,6 +26,11 @@
                     <ValidationMessage For="()=>Income.Name"></ValidationMessage>
                 </div>
                 <div class="form-group">
+                    <label>Amount</label>
+                    <InputNumber @bind-Value="Income.Amount" class="form-control"></InputNumber>
+                    <ValidationMessage For="()=>Income.Amount"></ValidationMessage>
+                </div>
+                <div class="form-group">
                     <label>Date</label>
                     <InputDate @bind-Value="Income.Date" class="form-control"></InputDate>
                     <ValidationMessage For="()=>Income.Date"></ValidationMessage>

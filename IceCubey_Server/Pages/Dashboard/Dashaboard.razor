@@ -1,0 +1,50 @@
+﻿@page "/dash"
+
+
+<div class="control-section dashboard-page">
+    <div class="row" style="margin-bottom: 16px;">
+        <p class="page-title" style="display: inline-block;margin-bottom: -2em; margin-top: 0.175em">Dashboard</p>
+        <div class="col-md-3 col-xs-12 col-xl-6 col-lg-3 daterange overview-range-picker">
+            <div id="daterange-overlay">
+                <div id="daterange-wrapper">
+                    	<SfDateRangePicker TValue="DateTime" AllowEdit="false" ShowClearButton="false" Format="MM/dd/yyyy">
+                        	<DateRangePickerEvents TValue="DateTime" ></DateRangePickerEvents>
+                        	<DateRangePickerPresets>
+                            	<DateRangePickerPreset Label="Last Month"></DateRangePickerPreset>
+                            	<DateRangePickerPreset Label="Last 3 Months" ></DateRangePickerPreset>
+                          		<DateRangePickerPreset Label="All Time" ></DateRangePickerPreset>
+                        	</DateRangePickerPresets>
+                    	</SfDateRangePicker>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <ExpCards></ExpCards>
+    </div>
+    <ExpPieChart ></ExpPieChart>
+    <div>
+        <div>
+            <div class="line-chart-area">
+                <ExpLineChart></ExpLineChart>
+            </div>
+            <div class="column-chart-area">
+                <ExpColumnChart></ExpColumnChart>
+            </div>
+        </div>
+        <ExpGrid ></ExpGrid>
+    </div>
+</div>
+
+
+<style>
+    #main-page {
+        overflow-x: hidden;
+        background: linear-gradient(-141deg, #EEF5F7 14%, #EEF2FB 100%);
+    }
+
+    .sidebar-Rightpane {
+        padding-bottom: 18px;
+        margin-right: -2px;
+    }
+</style>
