@@ -1,0 +1,53 @@
+﻿<SfButton IsPrimary="true" @onclick="@OnOpenBtnClick">Add Category</SfButton>
+<SfDialog Width="250px" @bind-Visible="@IsVisible" IsModal="true" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            Dialog Header
+        </Header>
+        <Content>
+            <div class="dialogContent"></div>
+            <span class="dialogText">@DialogText</span>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton OnClick="@OnDialogBtnClick">
+            <DialogButtonModel contenteditable="OK" IsPrimary="true"></DialogButtonModel>
+        </DialogButton>
+    </DialogButtons>
+</SfDialog>
+
+@code{
+    public bool IsVisible { get; set; } = false;
+    public string DialogText { get; set; } = "This is a Dialog";
+
+
+    private void OnDialogBtnClick()
+    {
+        IsVisible = false;
+    }
+
+    private void OnOpenBtnClick()
+    {
+        IsVisible = true;
+    }
+}
+
+<style>
+    .dialogContent {
+        display: block;
+        font-size: 15px;
+        word-wrap: break-word;
+        text-align: center;
+        font-style: italic;
+        position: relative;
+        top: 16px
+    }
+
+    .dialogText {
+        background-color: #D3D3D3;
+        padding-right: 4px;
+        color: orange;
+        font-family: sans-serif !important;
+        font-style: italic;
+    }
+</style>

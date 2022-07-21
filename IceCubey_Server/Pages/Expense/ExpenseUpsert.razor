@@ -6,10 +6,8 @@
 @inject IFileUpload _fileUpload
 @inject IJSRuntime _jsRuntime
 
-<_AddCategory IsParentComponentProcessing="IsLoading"></_AddCategory>
 <div class="row my-2">
     <h3 class="card-title text-primary mb-3 ml-3">@Title Expense</h3>
-                <button class="btn btn-info" @onclick="()=>HandleCategory()">Add Category</button>
 
     <div class="col-10">
         @if (IsLoading)
@@ -57,7 +55,7 @@
                         </div>
                     </div>
                     <div class="form-group col-6">
-                        <label>Category</label>
+                        <DialogModal></DialogModal>
                         <InputSelect @bind-Value="Expense.ExpenseCategoryId" class="form-select">
                             <option value="0" disabled="disabled" selected=>Select Category</option>
                             @foreach (var cat in ExpenseCategories)
@@ -78,7 +76,6 @@
                 <NavLink href="expense" class="btn btn-secondary">Back to Index</NavLink>
             </div>
         </EditForm>
-
         }
     </div>
 </div>
@@ -194,9 +191,5 @@
         {
             await _jsRuntime.ToastrError(ex.Message);
         }
-    }
-    private void HandleCategory()
-    {
-        _jsRuntime.InvokeVoidAsync("ShowAddCategoryModal");
     }
 }
