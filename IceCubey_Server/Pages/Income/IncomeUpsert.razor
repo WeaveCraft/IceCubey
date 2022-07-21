@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="form-group col-6">
-                        <DialogModal></DialogModal>
+                        <IncomeCategoryDialog></IncomeCategoryDialog>
                         <InputSelect @bind-Value="Income.CategoryId" class="form-select">
                             <option value="0" disabled="disabled" selected=>Select Category</option>
                             @foreach (var cat in Categories)

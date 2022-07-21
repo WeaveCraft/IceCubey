@@ -1,6 +1,7 @@
 ﻿@inject IExpenseCategoryRepository _expenseCategoryRepository
+@inject NavigationManager _navigationManager
 
-<SfButton IsPrimary="true" @onclick="@OnOpenBtnClick">Add Category</SfButton>
+<SfButton CssClass="e-success" @onclick="@OnOpenBtnClick">Add Category</SfButton>
 <SfDialog Width="250px" @bind-Visible="@IsVisible" IsModal="true" ShowCloseIcon="true">
     <DialogTemplates>
         <Header>
@@ -20,11 +21,6 @@
             </EditForm>
         </Content>
     </DialogTemplates>
-    <DialogButtons>
-        <DialogButton OnClick="@OnDialogBtnClick">
-            <DialogButtonModel contenteditable="OK" IsPrimary="true"></DialogButtonModel>
-        </DialogButton>
-    </DialogButtons>
 </SfDialog>
 
 @code {
@@ -34,6 +30,7 @@
     {
             //create
             await _expenseCategoryRepository.Create(ExpenseCategory);
+             _navigationManager.NavigateTo("/expense/create");
             IsVisible = false;
     }
 
