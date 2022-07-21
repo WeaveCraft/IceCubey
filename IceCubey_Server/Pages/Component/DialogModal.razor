@@ -1,12 +1,23 @@
-﻿<SfButton IsPrimary="true" @onclick="@OnOpenBtnClick">Add Category</SfButton>
+﻿@inject IExpenseCategoryRepository _expenseCategoryRepository
+
+<SfButton IsPrimary="true" @onclick="@OnOpenBtnClick">Add Category</SfButton>
 <SfDialog Width="250px" @bind-Visible="@IsVisible" IsModal="true" ShowCloseIcon="true">
     <DialogTemplates>
         <Header>
             Dialog Header
         </Header>
         <Content>
-            <div class="dialogContent"></div>
-            <span class="dialogText">@DialogText</span>
+            <EditForm Model="ExpenseCategory" OnValidSubmit="UpsertCategory">
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label>Name</label>
+                    <InputText @bind-Value="ExpenseCategory.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>ExpenseCategory.Name"></ValidationMessage>
+                </div>
+                <div class="form-group py-2">
+                    <button class="btn btn-primary">Add</button>
+                </div>
+            </EditForm>
         </Content>
     </DialogTemplates>
     <DialogButtons>
@@ -16,7 +27,17 @@
     </DialogButtons>
 </SfDialog>
 
-@code{
+@code {
+    private ExpenseCategoryDTO ExpenseCategory { get; set; } = new ExpenseCategoryDTO();
+
+    private async Task UpsertCategory()
+    {
+            //create
+            await _expenseCategoryRepository.Create(ExpenseCategory);
+            IsVisible = false;
+    }
+
+
     public bool IsVisible { get; set; } = false;
     public string DialogText { get; set; } = "This is a Dialog";
 
@@ -38,7 +59,7 @@
         font-size: 15px;
         word-wrap: break-word;
         text-align: center;
-        font-style: italic;
+        font-style: normal;
         position: relative;
         top: 16px
     }
@@ -46,8 +67,8 @@
     .dialogText {
         background-color: #D3D3D3;
         padding-right: 4px;
-        color: orange;
+        color: black;
         font-family: sans-serif !important;
-        font-style: italic;
+        font-style: normal;
     }
 </style>
