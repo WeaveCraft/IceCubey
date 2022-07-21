@@ -30,3 +30,11 @@ function ShowDeleteConfirmationModal() {
 function HideDeleteConfirmationModal() {
     $('#deleteConfirmationModal').modal('hide');
 }
+
+function ShowAddCategoryModal() {
+    $('#addCategoryModal').modal('show');
+}
+
+function HideAddCategoryModal() {
+    $('#addCategoryModal').modal('hide');
+}

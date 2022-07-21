@@ -6,8 +6,10 @@
 @inject IFileUpload _fileUpload
 @inject IJSRuntime _jsRuntime
 
+<_AddCategory IsParentComponentProcessing="IsLoading"></_AddCategory>
 <div class="row my-2">
     <h3 class="card-title text-primary mb-3 ml-3">@Title Expense</h3>
+                <button class="btn btn-info" @onclick="()=>HandleCategory()">Add Category</button>
 
     <div class="col-10">
         @if (IsLoading)
@@ -65,7 +67,6 @@
 
                     </InputSelect>
                     <ValidationMessage For="()=>Expense.ExpenseCategoryId"></ValidationMessage>
-                    <button type="button" class="btn btn-info btn-sm" @onclick="()=> OpenDeleteDialog()">Add Category</button>
                 </div>
                 <div class="form-group col-6">
                     <InputFile OnChange="HandleImageUpload"></InputFile>
@@ -77,16 +78,13 @@
                 <NavLink href="expense" class="btn btn-secondary">Back to Index</NavLink>
             </div>
         </EditForm>
+
         }
     </div>
 </div>
 <div class="col-md-2">
     <img src="@Expense.ImageUrl" class="w-100" />
 </div>
-@if (DeleteDialogOpen)
-{
-    <ModalDialog Title="Are you sure?" Text="Do you want to delete this entry?" OnClose="@OnDeleteDialogClose"></ModalDialog>
-}
 
 @code {
     [Parameter]
@@ -96,15 +94,22 @@
         {
             ImageUrl = "/images/default_image.png"
         };
+    private ExpenseCategoryDTO _categoryToCreate;
     public bool DeleteDialogOpen { get; set; }
-    private void OnDeleteDialogClose(bool accepted)
+    private async Task OnDeleteDialogClose(bool accepted)
     {
+        if (accepted)
+        {
+            await _expenseCategoryRepository.Create(_categoryToCreate);
+            _categoryToCreate = null;
+        }
         DeleteDialogOpen = false;
         StateHasChanged();
     }
-    private void OpenDeleteDialog()
+    private void OpenDeleteDialog(ExpenseCategoryDTO expenseCategoryDTO)
     {
         DeleteDialogOpen = true;
+        _categoryToCreate = expenseCategoryDTO;
         StateHasChanged();
     }
 
@@ -189,5 +194,9 @@
         {
             await _jsRuntime.ToastrError(ex.Message);
         }
+    }
+    private void HandleCategory()
+    {
+        _jsRuntime.InvokeVoidAsync("ShowAddCategoryModal");
     }
 }
