@@ -1,0 +1,41 @@
+﻿@page "/demos"
+@inject IExpenseRepository _expenseRepository
+@inject IExpenseCategoryRepository _expenseCategoryRepository
+
+<div class="control-section">
+    <SfAccumulationChart  EnableBorderOnMouseMove="false"  EnableAnimation="true" EnableSmartLabels="true" Theme="@Theme">
+        <AccumulationChartEvents TooltipRender="PieTooltipRender"></AccumulationChartEvents>
+        <AccumulationChartTooltipSettings Header="" Format="<b>${point.x}</b><br> Amount Spent: $<b>${point.y}</b>" Enable="true"></AccumulationChartTooltipSettings>
+        <AccumulationChartLegendSettings Visible="true" Reverse="true"></AccumulationChartLegendSettings>
+        <AccumulationChartSeriesCollection>
+            <AccumulationChartSeries DataSource="@Expenses" XName="ExpenseCategory.Name" YName="Amount" TooltipMappingName="Amount" InnerRadius="20%">
+                <AccumulationDataLabelSettings Name="Country" Visible="true" Position="AccumulationLabelPosition.Outside">
+                      <AccumulationChartConnector Length="20px" Type="ConnectorType.Curve"></AccumulationChartConnector>
+                        <AccumulationChartDataLabelFont FontWeight="600"></AccumulationChartDataLabelFont>
+                </AccumulationDataLabelSettings>
+            </AccumulationChartSeries>
+        </AccumulationChartSeriesCollection>
+    </SfAccumulationChart>
+</div>
+
+@code{
+    private Theme Theme { get; set; }
+    public IEnumerable<ExpenseDTO> Expenses = new List<ExpenseDTO>();
+    public void PieTooltipRender(TooltipRenderEventArgs args)
+    {
+        args.Text = args.Text.Replace(args.Data.PointY.ToString(), Convert.ToDouble(args.Data.PointY).ToString("#,#"));
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadExpenses();
+        }
+    }
+
+    private async Task LoadExpenses()
+    {
+        Expenses = await _expenseRepository.GetAll();
+        StateHasChanged();
+    }
+}
