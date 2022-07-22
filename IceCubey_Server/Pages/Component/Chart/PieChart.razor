@@ -2,25 +2,23 @@
 @inject IExpenseRepository _expenseRepository
 @inject IExpenseCategoryRepository _expenseCategoryRepository
 
-<div class="control-section">
-    <SfAccumulationChart  EnableBorderOnMouseMove="false"  EnableAnimation="true" EnableSmartLabels="true" Theme="@Theme">
-        <AccumulationChartEvents TooltipRender="PieTooltipRender"></AccumulationChartEvents>
-        <AccumulationChartTooltipSettings Header="" Format="<b>${point.x}</b><br> Amount Spent: $<b>${point.y}</b>" Enable="true"></AccumulationChartTooltipSettings>
-        <AccumulationChartLegendSettings Visible="true" Reverse="true"></AccumulationChartLegendSettings>
-        <AccumulationChartSeriesCollection>
-            <AccumulationChartSeries DataSource="@Expenses" XName="ExpenseCategory.Name" YName="Amount" TooltipMappingName="Amount" InnerRadius="20%">
-                <AccumulationDataLabelSettings Name="Country" Visible="true" Position="AccumulationLabelPosition.Outside">
-                      <AccumulationChartConnector Length="20px" Type="ConnectorType.Curve"></AccumulationChartConnector>
-                        <AccumulationChartDataLabelFont FontWeight="600"></AccumulationChartDataLabelFont>
-                </AccumulationDataLabelSettings>
-            </AccumulationChartSeries>
-        </AccumulationChartSeriesCollection>
-    </SfAccumulationChart>
-</div>
+<SfAccumulationChart>
+    <AccumulationChartSeriesCollection>
+        <AccumulationChartSeries Type="AccumulationType.Pie"
+            DataSource="@Expenses" XName="ExpenseCategory.Name" YName="Amount" InnerRadius="25%">
+            <AccumulationDataLabelSettings Visible="true">
+
+            </AccumulationDataLabelSettings>
+        </AccumulationChartSeries>
+        <AccumulationChartTooltipSettings Enable=true>
+
+        </AccumulationChartTooltipSettings>
+    </AccumulationChartSeriesCollection>
+</SfAccumulationChart>
 
 @code{
-    private Theme Theme { get; set; }
     public IEnumerable<ExpenseDTO> Expenses = new List<ExpenseDTO>();
+    public IEnumerable<ExpenseCategoryDTO> Categories = new List<ExpenseCategoryDTO>();
     public void PieTooltipRender(TooltipRenderEventArgs args)
     {
         args.Text = args.Text.Replace(args.Data.PointY.ToString(), Convert.ToDouble(args.Data.PointY).ToString("#,#"));
@@ -36,6 +34,7 @@
     private async Task LoadExpenses()
     {
         Expenses = await _expenseRepository.GetAll();
+        Categories = await _expenseCategoryRepository.GetAll();
         StateHasChanged();
     }
 }
