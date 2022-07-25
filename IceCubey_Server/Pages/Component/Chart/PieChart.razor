@@ -2,14 +2,10 @@
 @inject IExpenseRepository _expenseRepository
 @inject IExpenseCategoryRepository _expenseCategoryRepository
 
-@if (Expenses.Any())
-{
-    @foreach(var obj in Expenses)
-    {
-    <SfAccumulationChart>
+<SfAccumulationChart>
     <AccumulationChartSeriesCollection>
         <AccumulationChartSeries Type="AccumulationType.Pie"
-            DataSource="@Expenses" XName="@obj.ExpenseCategory.Name" YName="Amount" InnerRadius="25%">
+                                 DataSource="@Expenses" XName="Name" YName="Amount" InnerRadius="25%">
             <AccumulationDataLabelSettings Visible="true">
 
             </AccumulationDataLabelSettings>
@@ -19,16 +15,10 @@
         </AccumulationChartTooltipSettings>
     </AccumulationChartSeriesCollection>
 </SfAccumulationChart>
-}
-}
 
-@code{
+@code {
     public IEnumerable<ExpenseDTO> Expenses = new List<ExpenseDTO>();
-    public IEnumerable<ExpenseCategoryDTO> Categories = new List<ExpenseCategoryDTO>();
-    public void PieTooltipRender(TooltipRenderEventArgs args)
-    {
-        args.Text = args.Text.Replace(args.Data.PointY.ToString(), Convert.ToDouble(args.Data.PointY).ToString("#,#"));
-    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -40,7 +30,6 @@
     private async Task LoadExpenses()
     {
         Expenses = await _expenseRepository.GetAll();
-        Categories = await _expenseCategoryRepository.GetAll();
         StateHasChanged();
     }
 }

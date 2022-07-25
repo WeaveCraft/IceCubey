@@ -5,8 +5,6 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCubey_Server", "IceCubey_Server\IceCubey_Server.csproj", "{CD5B9FBB-CB4F-4139-A36F-62926402C829}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCubey_Client", "IceCubey_Client\IceCubey_Client.csproj", "{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCubey_Models", "IceCubey_Models\IceCubey_Models.csproj", "{4C10BE11-7A60-4D2C-A88C-ADC729A30619}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCubey_Business", "IceCubey_Business\IceCubey_Business.csproj", "{F884A999-D321-4961-9EE3-0B55AE5C5FB5}"
@@ -25,10 +23,6 @@ Global
 		{CD5B9FBB-CB4F-4139-A36F-62926402C829}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD5B9FBB-CB4F-4139-A36F-62926402C829}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD5B9FBB-CB4F-4139-A36F-62926402C829}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24ACBAD3-019F-4B39-A2E5-ED96CA3C5DF7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C10BE11-7A60-4D2C-A88C-ADC729A30619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C10BE11-7A60-4D2C-A88C-ADC729A30619}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C10BE11-7A60-4D2C-A88C-ADC729A30619}.Release|Any CPU.ActiveCfg = Release|Any CPU
