@@ -26,7 +26,6 @@
             await LoadExpenses();
         }
     }
-
     private async Task LoadExpenses()
     {
         Expenses = await _expenseRepository.GetAll();
