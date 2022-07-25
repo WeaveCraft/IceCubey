@@ -2,10 +2,14 @@
 @inject IExpenseRepository _expenseRepository
 @inject IExpenseCategoryRepository _expenseCategoryRepository
 
-<SfAccumulationChart>
+@if (Expenses.Any())
+{
+    @foreach(var obj in Expenses)
+    {
+    <SfAccumulationChart>
     <AccumulationChartSeriesCollection>
         <AccumulationChartSeries Type="AccumulationType.Pie"
-            DataSource="@Expenses" XName="Name" YName="Amount" InnerRadius="25%">
+            DataSource="@Expenses" XName="@obj.ExpenseCategory.Name" YName="Amount" InnerRadius="25%">
             <AccumulationDataLabelSettings Visible="true">
 
             </AccumulationDataLabelSettings>
@@ -15,6 +19,8 @@
         </AccumulationChartTooltipSettings>
     </AccumulationChartSeriesCollection>
 </SfAccumulationChart>
+}
+}
 
 @code{
     public IEnumerable<ExpenseDTO> Expenses = new List<ExpenseDTO>();
