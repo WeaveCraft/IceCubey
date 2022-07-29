@@ -1,2 +1,2 @@
 # IceCubey
-Finance tracker using Blazor server with Syncfusion
+Finance tracker using Blazor server with Syncfusion.
